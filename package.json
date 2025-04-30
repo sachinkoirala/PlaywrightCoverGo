@@ -4,10 +4,10 @@
   "description": "PlaywrightCoverGo",
   "main": "index.js",
   "scripts": {
-  "test": "playwright test",
-  "pretest": "rm -rf test-results/screenshots && mkdir -p test-results/screenshots",
-  "posttest": "allure generate test-results/allure-results --clean && allure open test-results/allure-report"
-},
+    "test": "playwright test",
+    "pretest": "rm -rf test-results && mkdir -p test-results/screenshots",
+    "posttest": "allure generate test-results/allure-results --clean -o test-results/allure-report && allure open test-results/allure-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sachinkoirala/PlaywrightCoverGo.git"
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@playwright/test": "^1.52.0",
     "@types/node": "^22.15.3",
-    "allure-playwright": "^2.0.0-beta.19"
+    "allure-playwright": "^2.15.1",
+    "allure-commandline": "^2.20.0"
   }
 }
