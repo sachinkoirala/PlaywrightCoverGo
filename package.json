@@ -2,6 +2,7 @@
   "name": "playwrightcovergo",
   "version": "1.0.0",
   "description": "PlaywrightCoverGo",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",

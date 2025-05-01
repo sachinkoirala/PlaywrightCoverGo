@@ -1,6 +1,6 @@
-const BasePage = require('./base');
+import {BasePage} from './BasePage'; 
 
-class LoginPage extends BasePage {
+export class LoginPage extends BasePage {
   constructor(page) {
     super(page);
     this.usernameInput = '#user-name';
@@ -9,6 +9,11 @@ class LoginPage extends BasePage {
     this.errorMessage = '[data-test="error"]';
     this.loginLogo = '.login_logo';
   }
+
+  
+  async open(path = '') {
+    await this.navigateTo(`${process.env.PLAYWRIGHT_TEST_BASE_URL || ''}${path}`);
+}
 
   async login(username, password) {
     await this.type(this.usernameInput, username);
@@ -25,4 +30,3 @@ class LoginPage extends BasePage {
   }
 }
 
-module.exports = LoginPage;

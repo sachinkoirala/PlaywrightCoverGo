@@ -1,13 +1,13 @@
-const { test, expect } = require('@playwright/test');
-const LoginPage = require('../pages/login');
-const credentials = require('../config/credentials.json');
 
+import { test, expect } from '@playwright/test';
+import {LoginPage} from '../pages/LoginPage';
+import credentials from '../config/credentials.json' assert { type: 'json' };
 test.describe('Login Tests', () => {
   let loginPage;
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page , baseURL}) => {
     loginPage = new LoginPage(page);
-    await loginPage.open('https://www.saucedemo.com');
+    await loginPage.open();
   });
 
   // TC1: Successful login with valid credentials

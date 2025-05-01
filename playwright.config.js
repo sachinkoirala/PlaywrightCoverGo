@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './UI_Automation/tests', // Directory where your test files are located
-  retries: 1, // Retry failed tests once
+  retries: 0, // Retry failed tests once
   use: {
     headless: false, // Run tests in headless mode
     baseURL: 'https://www.saucedemo.com', // Base URL for tests

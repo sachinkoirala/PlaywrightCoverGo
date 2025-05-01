@@ -1,6 +1,6 @@
-const BasePage = require('./base');
+import { BasePage } from './BasePage';
 
-class InventoryPage extends BasePage {
+export class InventoryPage extends BasePage {
   constructor(page) {
     super(page);
     this.inventoryTitle = '.title';
@@ -41,4 +41,3 @@ class InventoryPage extends BasePage {
   }
 }
 
-module.exports = InventoryPage;

@@ -1,34 +1,39 @@
-const { test, expect } = require('@playwright/test');
-const LoginPage = require('../pages/login');
-const InventoryPage = require('../pages/inventory');
-const CartPage = require('../pages/cart');
-const credentials = require('../config/credentials.json');
+
+import  { test, expect } from '@playwright/test';
+import {LoginPage} from '../pages/LoginPage';
+import {InventoryPage} from '../pages/InventoryPage';
+import {CartPage} from '../pages/CartPage';
+import credentials from '../config/credentials.json' assert { type: 'json' };
 
 test.describe('Cart Tests', () => {
   let loginPage, inventoryPage, cartPage;
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page , baseURL}) => {
+    // Initialize page objects
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
     cartPage = new CartPage(page);
-    await loginPage.open('https://www.saucedemo.com');
+    
+
+    // Open the login page and log in
+    await loginPage.open();
     await loginPage.login(credentials.validUser.username, credentials.validUser.password);
   });
 
   // TC7: Navigate to cart and verify items
   test('should navigate to cart and verify items', async () => {
-    await inventoryPage.addProductToCart('Sauce Labs Bike Light');
+     await inventoryPage.addProductToCart('Sauce Labs Bike Light');
     await inventoryPage.goToCart();
-    const itemName = await cartPage.isCartItemPresent('Sauce Labs Bike Light');
-    expect(itemName).toBe(true);
+    const itemExists = await cartPage.isCartItemPresent('Sauce Labs Bike Light');
+    expect(itemExists).toBe(true);
   });
 
   // TC8: Remove item from cart
   test('should remove an item from cart', async () => {
-    await inventoryPage.addProductToCart('Sauce Labs Fleece Jacket');
+    await inventoryPage.addProductToCart('Sauce Labs Bolt T-Shirt');
     await inventoryPage.goToCart();
-    await cartPage.removeItemFromCart('Sauce Labs Fleece Jacket');
-    const exists = await cartPage.isCartItemPresent('Sauce Labs Fleece Jacket');
+    await cartPage.removeItemFromCart('Sauce Labs Bolt T-Shirt');
+    const exists = await cartPage.isCartItemPresent('Sauce Labs Bolt T-Shirt');
     expect(exists).toBe(false);
   });
 
@@ -42,7 +47,7 @@ test.describe('Cart Tests', () => {
 
   // TC10: Verify default sorting
   test('should display correct number of products', async () => {
-    const names = await inventoryPage.getAllProductNames();
-    expect(names.length).toBe(6);
+    const productNames = await inventoryPage.getAllProductNames();
+    expect(productNames.length).toBe(6);
   });
 });

@@ -1,15 +1,17 @@
-const { test, expect } = require('@playwright/test');
-const LoginPage = require('../pages/login');
-const InventoryPage = require('../pages/inventory');
-const credentials = require('../config/credentials.json');
+
+import {LoginPage} from '../pages/LoginPage';
+import {InventoryPage} from '../pages/InventoryPage';
+import credentials from '../config/credentials.json' assert { type: 'json' };
+import { test, expect } from '@playwright/test';
+
 
 test.describe('Inventory Tests', () => {
   let loginPage, inventoryPage;
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page , baseURL}) => {
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
-    await loginPage.open('https://www.saucedemo.com');
+    await loginPage.open();
     await loginPage.login(credentials.validUser.username, credentials.validUser.password);
   });
 
